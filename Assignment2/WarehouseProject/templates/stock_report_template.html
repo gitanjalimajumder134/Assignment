@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h2 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: center; }
+        .bold { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Stock Report</h2>
+    <p><strong>Item Code:</strong> {{ report.item.code }}</p>
+    <p><strong>Name:</strong> {{ report.item.name }}</p>
+    <p><strong>Unit:</strong> {{ report.item.unit }}</p>
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Code</th>
+            <th colspan="3">In</th>
+            <th colspan="3">Out</th>
+            <th colspan="2">Stock</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Qty</th>
+            <th>Total</th>
+        </tr>
+        {% for transaction in report.transactions %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.code }}</td>
+            <td>{{ transaction.in_qty }}</td>
+            <td>{{ transaction.in_price }}</td>
+            <td>{{ transaction.in_total }}</td>
+            <td>{{ transaction.out_qty }}</td>
+            <td>{{ transaction.out_price }}</td>
+            <td>{{ transaction.out_total }}</td>
+            <td>{{ transaction.stock_qty }}</td>
+            <td>{{ transaction.stock_balance }}</td>
+        </tr>
+        {% endfor %}
+        <tr class="bold">
+            <td colspan="4">Summary</td>
+            <td>{{ report.summary.total_in }}</td>
+            <td colspan="2"></td>
+            <td>{{ report.summary.total_out }}</td>
+            <td colspan="2"></td>
+            <td>{{ report.summary.final_stock }}</td>
+            <td>{{ report.summary.final_balance }}</td>
+        </tr>
+    </table>
+</body>
+</html>
